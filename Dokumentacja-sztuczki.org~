@@ -1,0 +1,5 @@
+* Mateusz "Malice" Malisz, 2014-10-17
+* Baza danych sztuczek
+** Wstęp
+   Baza danych sztuczek to mały projekt w języku Common Lisp, który pozwala na wygodne wyszukiwanie
+i przechowywanie sztuczek z Neuroshimy RPG. Obecnie 

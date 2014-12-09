@@ -1,0 +1,30 @@
+; Wzorzec:
+; "Nazwa"
+; (wym1nazwa wym1wartosc wym2nazwa wym2wartosc ...) [1]
+; "Opis sztuczki(tekst fabularny)"
+; "Działanie sztuczki(efekt mechaniki)"
+; "Źródło sztuczki"
+; "Typ sztuczki"
+; [1]: Dla alternatyw(wymaganie1 lub wymaganie2) używa się zagnieżdżonych list:((wym1 wym2))
+
+
+"Zasłona" 
+(BIJATYKA 2 BUDOWA 12) 
+NIL 
+"dzialanie tej sztuczki" 
+"Podstawka" 
+NIL 
+
+"Wilk Morski" 
+NIL 
+NIL 
+"Robisz węzły." 
+"Podstawka" 
+NIL 
+
+"Sztuczka Placeholder" 
+((SAMOCHODY 3 CIEZAROWKI 3)) 
+NIL 
+"Taranujesz" 
+"Podstawka" 
+NIL 
