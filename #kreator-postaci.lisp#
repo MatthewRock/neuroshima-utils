@@ -1,29 +1,3 @@
-(defun keywordify (symbol)
-  (intern (symbol-name symbol) :keyword))
-
-(defmacro defpostac (&rest slots)
-  "Makro uproszczajace tworzenie postaci."
-  `(defclass postac ()
-     ,(loop for x in slots collecting `(,x :initarg ,(keywordify x) :accessor ,x :initform 0))))
-
-(defpostac imie pochodzenie cecha-pochodzenia specjalizacja profesja cecha-profesji sztuczki
-	   zrecznosc percepcja charakter spryt budowa
-	   choroba rany reputacja slawa
-	   pancerz bron-odleglosc bron-rece znajomi doswiadczenie
-	   sprzet
-	   bijatyka bron-reczna rzucanie samochod motocykl ciezarowka
-	   kradziez-kieszonkowa otwieranie-zamkow zwinne-dlonie
-	   pistolety karabiny bron-maszynowa luk kusza proca inne-umiejetnosci
-	   wyczucie-kierunku przygotowanie-pulapki tropienie
-	   nasluchiwanie wypatrywanie czujnosc skradanie-sie ukrywanie-sie maskowanie
-	   lowiectwo znajomosc-terenu zdobywanie-wody
-	   zastraszanie perswazja zdolnosci-przywodcze postrzeganie-emocji blef opieka-nad-zwierzetami
-	   odpornosc-na-bol niezlomnosc morale
-	   pierwsza-pomoc leczenie-ran leczenie-chorob mechanika elektronika komputery
-	   wiedza-ogolna maszyny-ciezkie wozy-bojowe kutry rusznikarstwo wyrzutnie materialy-wybuchowe
-	   kondycja plywanie wspinaczka jazda-konna powozenie ujezdzanie)
-
-
 (defun przywitaj ()
   (format t "~&Witaj. Kreator postaci pozwoli Tobie w prosty sposób stworzyć postać.")
   (format t "~&Wybierz sposób tworzenia postaci:"))
