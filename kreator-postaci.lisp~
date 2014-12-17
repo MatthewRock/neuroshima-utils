@@ -1,8 +1,0 @@
-(defun spytaj-o-wybor ()
-  )
-
-(defun hello-user ()
-  (format t "~&Witaj. Kreator postaci pozwoli Tobie w prosty sposób stworzyć postać.")
-  (format t "~&Wybierz sposób tworzenia postaci:")
-  (let ((wybor (spytaj-o-wybor)))
-    ()))
