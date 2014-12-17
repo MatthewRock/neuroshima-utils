@@ -2,3 +2,5 @@
 *.*~
 \#*
 *.*\#
+#Common Lisp compiled objects
+*.fasl
