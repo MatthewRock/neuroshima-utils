@@ -1,5 +1,6 @@
-(defun keywordify (symbol)
-  (intern (symbol-name symbol) :keyword))
+(eval-when (:compile-toplevel :load-toplevel :execute)
+  (defun keywordify (symbol)
+    (intern (symbol-name symbol) :keyword)))
 
 (defmacro defpostac (&rest slots)
   "Makro uproszczajace tworzenie postaci."
@@ -29,29 +30,38 @@
   (format t "~&Wybierz sposób tworzenia postaci:"))
 
 (defun spytaj-o-wybor ()
-  (print "Not implemented.")
-  (do ((wybor nil)
-       (odpowiedz nil (format t "~&~%Błędny numer. Spróbuj jeszcze raz.")))
-      ((not (null wybor)) odpowiedz)
+  "Funkcja do skutku pyta użytkownika o poprawny wybór z menu."
+  (do ((wybor 0) ; Na początku za wybór ustawiam dowolną liczbę spoza zasięgu(wybrałem 0)
+       (plist-odpowiedz '(1 tworzenie-manualne 2 tworzenie-za-raczke 3 tworzenie-pytania 4 popraw-istniejaca 5 wyjscie))) ; Lista, na podstawie której wybrany będzie odpowiedni symbol do zwrócenia
+      ((and (< wybor 6) (> wybor 0))
+       (second (member wybor plist-odpowiedz)))
+    ;Wypisz menu
     (format t "~&1. Stwórz postać manualnie, wprowadzając samemu potrzebne dane.")
     (format t "~&2. Stwórz postać z pomocą kreatora. Teoretycznie łatwy i przyjemny :)")
-    (format t "~&3. Popraw istniejącą już postać, stworzoną kreatorem.")
-    (format t "~&4. Skończ pracę z programem.")
-    (format t "~&Wybór: ") (read-line )))
+    (format t "~&3. Stwórz postać odpowiadając na pytania. Eksperymentalne, prawdopodobnie nie wylosuje Tobie wymarzonej postaci, ale jest to szybki sposób :)")
+    (format t "~&4. Popraw istniejącą już postać, stworzoną kreatorem.")
+    (format t "~&5. Skończ pracę z programem.")
+    ;Hack: używam ora jako strażnika. jeśli parse-integer zwróci nil, to dzięki ORowi zmienna
+    ; zamiast NILa otrzyma wartość -1, czyli poza zakresem. Zapobiega problemom.
+    (format t "~&Wybór: ") (setf wybor (or (parse-integer (read-line) :junk-allowed t) -1))))
 
 (defun stworz-manualnie (postac)
-  (print "Not implemented.")
-  )
+  (print "Not implemented."))
 
 (defun stworz-za-raczke (postac)
   (print "Not implemented.")
   )
 
 (defun popraw-postac (postac)
-  (print "Not implemented."))
+  (print "Not implemented.Popraw."))
 
 (defun spytaj-czy-poprawic-postac ()
-  )
+  (y-or-n-p "Czy chcesz poprawić postać?"))
+
+(defun stworz-pytaniami (postac)
+  (print "Pytanie! Podaj odpowiedź!")
+  (setf postac (read-line))
+  postac)
 
 (defun pozegnaj ()
   (print "Papa!"))
@@ -62,8 +72,10 @@
     (tworzenie-manualne (stworz-manualnie postac))
     (tworzenie-za-raczke (stworz-za-raczke postac))
     (popraw-istniejaca (popraw-postac postac))
+    (tworzenie-pytania (setf postac (stworz-pytaniami postac)))
     (wyjscie (return-from hello-user))
     (otherwise (error "Program zrobił coś, co nie było przewidziane. Sorry!")))
   (if (spytaj-czy-poprawic-postac)
-      (popraw-postac postac)
-      (pozegnaj)))
+      (popraw-postac postac))
+  (pozegnaj)
+  postac)

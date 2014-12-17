@@ -90,8 +90,9 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defun keywordify (symbol)
-  (intern (symbol-name symbol) :keyword))
+(eval-when (:compile-toplevel :load-toplevel :execute)
+    (defun keywordify (symbol)
+      (intern (symbol-name symbol) :keyword)))
 
 (defmacro defpostac (&rest slots)
   "Makro uproszczajace tworzenie postaci."
