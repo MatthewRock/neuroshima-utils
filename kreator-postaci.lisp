@@ -31,19 +31,18 @@
 
 (defun spytaj-o-wybor ()
   "Funkcja do skutku pyta użytkownika o poprawny wybór z menu."
-  (do ((wybor 0) ; Na początku za wybór ustawiam dowolną liczbę spoza zasięgu(wybrałem 0)
-       (plist-odpowiedz '(1 tworzenie-manualne 2 tworzenie-za-raczke 3 tworzenie-pytania 4 popraw-istniejaca 5 wyjscie))) ; Lista, na podstawie której wybrany będzie odpowiedni symbol do zwrócenia
-      ((and (< wybor 6) (> wybor 0))
-       (second (member wybor plist-odpowiedz)))
-    ;Wypisz menu
     (format t "~&1. Stwórz postać manualnie, wprowadzając samemu potrzebne dane.")
     (format t "~&2. Stwórz postać z pomocą kreatora. Teoretycznie łatwy i przyjemny :)")
     (format t "~&3. Stwórz postać odpowiadając na pytania. Eksperymentalne, prawdopodobnie nie wylosuje Tobie wymarzonej postaci, ale jest to szybki sposób :)")
     (format t "~&4. Popraw istniejącą już postać, stworzoną kreatorem.")
     (format t "~&5. Skończ pracę z programem.")
-    ;Hack: używam ora jako strażnika. jeśli parse-integer zwróci nil, to dzięki ORowi zmienna
-    ; zamiast NILa otrzyma wartość -1, czyli poza zakresem. Zapobiega problemom.
-    (format t "~&Wybór: ") (setf wybor (or (parse-integer (read-line) :junk-allowed t) -1))))
+    (format t "~&Wybór: ") 
+    (let ((odpowiedz (parse-integer (read-line) :junk-allowed t)))
+    	(if (null odpowiedz) 
+    		(progn
+    			(format t "~&Błędna odpowiedź. Wybierz jeszcze raz: ~%~%")
+    			(spytaj-o-wybor))
+    		odpowiedz)))
 
 (defun stworz-manualnie (postac)
   (print "Not implemented."))
